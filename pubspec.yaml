@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_riverpod: ^2.3.6
   provider: ^6.0.5
+  just_audio: ^0.9.34
 
 dev_dependencies:
   flutter_test:
@@ -59,9 +60,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/audio/mixkit-classic-alarm-995.wav
+    - assets/audio/mixkit-alarm-tone-996.wav
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
