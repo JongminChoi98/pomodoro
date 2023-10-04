@@ -13,6 +13,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = Provider.of<TimerModel>(context, listen: false);
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -67,10 +69,10 @@ class HomePage extends StatelessWidget {
                     IconButton(
                       iconSize: Sizes.size96 + Sizes.size24,
                       color: Theme.of(context).colorScheme.primary,
-                      onPressed: timer.isRunning
-                          ? () => context.read<TimerModel>().onPausePressed()
-                          : () => context.read<TimerModel>().onStartPressed(),
-                      icon: Icon(timer.isRunning
+                      onPressed: model.onToggleStartPause,
+                      //TODO: Pause icon not changing while isResting time and press pause
+                      //TODO: After 15 pomodoro count => The time is getting faster and faster
+                      icon: Icon(timer.isRunning || timer.isResting
                           ? Icons.pause_circle_outline
                           : Icons.play_circle_outline),
                     ),

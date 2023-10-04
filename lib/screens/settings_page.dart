@@ -19,23 +19,12 @@ class SettingPage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
+            // ADD Timer Setting
             SwitchListTile.adaptive(
               value: false,
               onChanged: (value) {},
               title: const Text("Setting One"),
               subtitle: const Text("Setting subtitle one"),
-            ),
-            SwitchListTile.adaptive(
-              value: false,
-              onChanged: (value) {},
-              title: const Text("Setting Two"),
-              subtitle: const Text("Setting subtitle Two"),
-            ),
-            SwitchListTile.adaptive(
-              value: false,
-              onChanged: (value) {},
-              title: const Text("Setting Three"),
-              subtitle: const Text("Setting subtitle Three"),
             ),
             CheckboxListTile(
               activeColor: Colors.black,

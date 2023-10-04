@@ -6,12 +6,10 @@ import 'package:provider/provider.dart';
 class ResetButton extends StatelessWidget {
   const ResetButton({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      iconSize: Sizes.size96 + Sizes.size24,
-      color: Theme.of(context).colorScheme.primary,
-      onPressed: () => showDialog<String>(
+  void _onResetPress(BuildContext context) {
+    final model = Provider.of<TimerModel>(context, listen: false);
+    if (model.isRunning || model.isResting) {
+      showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
           title: const Text(
@@ -33,7 +31,18 @@ class ResetButton extends StatelessWidget {
             ),
           ],
         ),
-      ),
+
+        //TODO: Timer Pause when press reset
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      iconSize: Sizes.size96 + Sizes.size24,
+      color: Theme.of(context).colorScheme.primary,
+      onPressed: () => _onResetPress(context),
       icon: const Icon(
         Icons.replay_rounded,
       ),

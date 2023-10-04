@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
 class TimerModel extends ChangeNotifier {
-  static const _defaultWorkSeconds = 10;
-  static const _defaultRestSeconds = 5;
+  static const _defaultWorkSeconds = 3;
+  static const _defaultRestSeconds = 3;
   static const _defaultPomodoroCount = 0;
   int _remainWorkSeconds = _defaultWorkSeconds;
   int _remainRestSeconds = _defaultRestSeconds;
@@ -14,11 +14,21 @@ class TimerModel extends ChangeNotifier {
   bool _isResting = false;
   late Timer _timer;
 
+  // Getters and Setters
   bool get isRunning => _isRunning;
   bool get isResting => _isResting;
-  int get remainWorkSeconds => _remainWorkSeconds;
-  int get remainRestSeconds => _remainRestSeconds;
   int get totalPomodoroCount => _totalPomodoroCount;
+  int get remainWorkSeconds => _remainWorkSeconds;
+  set remainWorkSeconds(int workSecond) {
+    _remainWorkSeconds = workSecond;
+    notifyListeners();
+  }
+
+  int get remainRestSeconds => _remainRestSeconds;
+  set remainRestSeconds(int restSecond) {
+    _remainRestSeconds = restSecond;
+    notifyListeners();
+  }
 
   final player = AudioPlayer();
 
@@ -59,21 +69,23 @@ class TimerModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onStartPressed() {
-    _timer = Timer.periodic(const Duration(seconds: 1), _onTick);
-    _isRunning = true;
-    notifyListeners();
-  }
-
-  void onPausePressed() {
-    _timer.cancel();
-    _isRunning = false;
+  void onToggleStartPause() {
+    if (_isRunning) {
+      _timer.cancel();
+      _isRunning = false;
+    } else {
+      _timer = Timer.periodic(const Duration(seconds: 1), _onTick);
+      _isRunning = true;
+    }
     notifyListeners();
   }
 
   void onResetPressed() {
-    _timer.cancel();
-    _isRunning = false;
+    if (_isRunning) {
+      _timer.cancel();
+      _isRunning = false;
+    }
+
     _isResting = false;
     _remainWorkSeconds = _defaultWorkSeconds;
     _remainRestSeconds = _defaultRestSeconds;
